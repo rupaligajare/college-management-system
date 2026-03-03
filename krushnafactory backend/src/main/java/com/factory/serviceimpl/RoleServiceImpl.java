@@ -1,7 +1,6 @@
 package com.factory.serviceimpl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -67,7 +66,7 @@ public class RoleServiceImpl implements RoleService{
 	    List<ResponseRoleDto> roleDtoList=new ArrayList<>();
 	    
 	    for(RoleMaster role:roleList) {
-	    	roleDtoList.add(responseRoleMapper.toRessponseRoleDto(role));
+	    	roleDtoList.add(responseRoleMapper.toResponseRoleDto(role));
 	    }
 	   
 	    if (roleList.isEmpty()) {

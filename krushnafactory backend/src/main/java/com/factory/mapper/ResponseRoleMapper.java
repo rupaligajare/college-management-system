@@ -8,7 +8,7 @@ import com.factory.entity.RoleMaster;
 @Component
 public class ResponseRoleMapper {
 
-	public ResponseRoleDto toRessponseRoleDto(RoleMaster roleMaster) {
+	public ResponseRoleDto toResponseRoleDto(RoleMaster roleMaster) {
 		
 		ResponseRoleDto roleResponseDto = new ResponseRoleDto();
 		roleResponseDto.setRoleId(roleMaster.getRoleId());
