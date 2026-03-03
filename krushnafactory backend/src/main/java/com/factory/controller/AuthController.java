@@ -14,6 +14,7 @@ import com.factory.dto.UserLoginRequest;
 import com.factory.dto.UserRegisterRequest;
 import com.factory.service.AuthService;
 
+//Rushi
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
