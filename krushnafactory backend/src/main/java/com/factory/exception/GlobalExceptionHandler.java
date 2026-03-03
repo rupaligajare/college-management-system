@@ -15,8 +15,9 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Map.of(
-                        "data", Map.of(
+                        
                                 "status", "error",
+                                "data", Map.of(
                                 "message", ex.getMessage()
                         )
                 ));
@@ -27,8 +28,9 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Map.of(
-                        "data", Map.of(
+                        
                                 "status", "error",
+                                "data", Map.of(
                                 "message", ex.getMessage()
                         )
                 ));
@@ -39,8 +41,9 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body(Map.of(
-                        "data", Map.of(
+                       
                                 "status", "error",
+                                "data", Map.of(
                                 "message", ex.getMessage()
                         )
                 ));
@@ -52,8 +55,9 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(Map.of(
-                        "data", Map.of(
+                        
                                 "status", "error",
+                                "data", Map.of(
                                 "message", ex.getMessage()
                         )
                 ));
@@ -65,8 +69,9 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(Map.of(
-                        "data", Map.of(
+                        
                                 "status", "error",
+                                "data", Map.of(
                                 "message", "Something went wrong"
                         )
                 ));
