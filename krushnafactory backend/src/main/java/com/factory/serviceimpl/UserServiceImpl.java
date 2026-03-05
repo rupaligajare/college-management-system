@@ -37,13 +37,7 @@ public class UserServiceImpl implements UserService{
 	    for(UserMaster user:userList) {
 	    	userDtoList.add(responseUserMapper.toResponseUserDto(user));
 	    }
-	    
-	    System.out.println(">>>>>>>>>"+ userDtoList);
-	   
-	    if (userList.isEmpty()) {
-	        throw new ResourceNotFoundException("No roles found");
-	    }
-
+	
 	    return Map.of(
 	            "status", "success",
 	            "data", userDtoList
