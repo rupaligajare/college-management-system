@@ -1,5 +1,6 @@
 package com.factory.serviceimpl;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.factory.dto.ResponseRoleDto;
 import com.factory.entity.RoleMaster;
 import com.factory.exception.BadRequestException;
+import com.factory.exception.DuplicateResourceException;
 import com.factory.exception.ResourceNotFoundException;
 import com.factory.mapper.ResponseRoleMapper;
 import com.factory.repository.RoleMasterRepository;
@@ -63,19 +65,56 @@ public class RoleServiceImpl implements RoleService{
 
 	    List<RoleMaster> roleList = roleMasterRepository.findAll();
 	    
+	    if (roleList.isEmpty()) {
+	        throw new ResourceNotFoundException("No roles found");
+	    }
+	    
 	    List<ResponseRoleDto> roleDtoList=new ArrayList<>();
 	    
 	    for(RoleMaster role:roleList) {
 	    	roleDtoList.add(responseRoleMapper.toResponseRoleDto(role));
 	    }
 	   
-	    if (roleList.isEmpty()) {
-	        throw new ResourceNotFoundException("No roles found");
-	    }
+	   
 
 	    return Map.of(
 	            "status", "success",
 	            "data", roleDtoList
 	    );
+	}
+
+	@Override
+	public Map<String, Object> getRole(Long roleId) {
+		
+		RoleMaster role=roleMasterRepository.findById(roleId).orElseThrow(()->new ResourceNotFoundException("No Role Found With Id "+roleId));
+		
+		
+		
+		return Map.of(
+				"status","succes", 
+				"data",responseRoleMapper.toResponseRoleDto(role));
+	}
+
+	@Override
+	public Map<String, Object> updateRole(HttpServletRequest request, Long roleId, String roleName) {
+		
+		boolean isAlreadyExists = roleMasterRepository
+	            .existsByRoleNameIgnoreCaseAndRoleIdNot(roleName, roleId);
+		
+		if(isAlreadyExists) {
+			throw new DuplicateResourceException("Role name already exists");
+		}
+		RoleMaster role=roleMasterRepository.findById(roleId).orElseThrow(()->new ResourceNotFoundException("No Role Found With Id "+roleId));
+		
+		String roleNameRef=roleName.trim().toUpperCase();
+		role.setRoleName(roleNameRef);
+		role.setUpdatedBy((Long)request.getAttribute("userId"));
+		role.setUpdatedDate(LocalDateTime.now());
+		
+		RoleMaster savedRole = roleMasterRepository.save(role);
+		
+		return Map.of(
+				"status","success",
+				"Message","Role name changed to "+savedRole.getRoleName());
 	}
 }

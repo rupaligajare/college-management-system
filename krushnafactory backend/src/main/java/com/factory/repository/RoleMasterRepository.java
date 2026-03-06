@@ -10,5 +10,11 @@ public interface RoleMasterRepository extends JpaRepository<RoleMaster, Long> {
 
     Optional<RoleMaster> findByRoleName(String roleName);
 
+	
+
+	boolean existsByRoleNameIgnoreCaseAndRoleIdNot(String roleName, Long roleId);
+
+
+
 	boolean existsByRoleNameIgnoreCase(String trim);
 }

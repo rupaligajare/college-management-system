@@ -22,6 +22,21 @@ public class GlobalExceptionHandler {
                         )
                 ));
     }
+    
+   
+    
+    @ExceptionHandler(DuplicateResourceException.class)
+    public ResponseEntity<Map<String, Object>> handleDuplicate(DuplicateResourceException ex) {
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Map.of(
+                        
+                                "status", "error",
+                                "data", Map.of(
+                                "message", ex.getMessage()
+                        )
+                ));
+    }
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleNotFound(ResourceNotFoundException ex) {
